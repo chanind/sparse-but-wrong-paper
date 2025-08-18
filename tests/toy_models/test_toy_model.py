@@ -9,12 +9,12 @@ def test_ToyModel_init():
     # Check if features are orthogonal
     feature_matrix = model.embed.weight.data.T
     dot_products = feature_matrix @ feature_matrix.T
-    assert torch.allclose(
-        dot_products, torch.eye(10), atol=1e-6
-    ), "Features are not orthogonal"
+    assert torch.allclose(dot_products, torch.eye(10), atol=1e-6), (
+        "Features are not orthogonal"
+    )
 
     # Check if features have norm of 1
     norms = torch.norm(feature_matrix, dim=1)
-    assert torch.allclose(
-        norms, torch.ones(10), atol=1e-6
-    ), "Features do not have unit norm"
+    assert torch.allclose(norms, torch.ones(10), atol=1e-6), (
+        "Features do not have unit norm"
+    )
