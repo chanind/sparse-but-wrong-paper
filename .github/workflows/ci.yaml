@@ -16,6 +16,8 @@ jobs:
         uses: astral-sh/setup-uv@v4
         with:
           version: "latest"
+      - name: Install latex stuff
+        run: sudo apt-get install texlive texlive-latex-extra texlive-fonts-recommended dvipng cm-super texlive-latex-base
       - name: Install dependencies
         run: uv sync --all-extras
       - name: check formatting
