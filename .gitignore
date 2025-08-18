@@ -171,6 +171,7 @@ cython_debug/
 .pypirc
 
 test/checkpoints/
+checkpoints/
 *.webp
 *.gif
 notebooks/*.pdf
