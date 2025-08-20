@@ -3,7 +3,7 @@ from sae_lens import BatchTopKTrainingSAE
 from sae_lens.saes.sae import TrainStepInput
 
 from sparse_but_wrong.enchanced_batch_topk_sae import (
-    EnchancedBatchTopkTrainingSAE,
+    EnchancedBatchTopKTrainingSAE,
     EnhancedBatchTopKTrainingSAEConfig,
 )
 from tests.helpers import random_model_params
@@ -16,7 +16,7 @@ def test_EnchancedBatchTopkTrainingSAE_gives_same_results_after_folding_W_dec_no
         d_sae=10,
         normalize_acts_by_decoder_norm=True,
     )
-    sae = EnchancedBatchTopkTrainingSAE(cfg)
+    sae = EnchancedBatchTopKTrainingSAE(cfg)
     random_model_params(sae)
 
     test_input = torch.randn(300, 5)
@@ -40,7 +40,7 @@ def test_EnchancedBatchTopkTrainingSAE_gives_same_results_as_BatchTopkTrainingSA
         d_sae=10,
         normalize_acts_by_decoder_norm=True,
     )
-    sae = EnchancedBatchTopkTrainingSAE(cfg)
+    sae = EnchancedBatchTopKTrainingSAE(cfg)
     random_model_params(sae)
 
     sae.fold_W_dec_norm()
@@ -71,7 +71,7 @@ def test_EnchancedBatchTopkTrainingSAE_k_transitions_from_initial_to_final_over_
         transition_k_duration_steps=8,
         transition_k_start_step=0,
     )
-    sae = EnchancedBatchTopkTrainingSAE(cfg)
+    sae = EnchancedBatchTopKTrainingSAE(cfg)
     random_model_params(sae)
 
     test_input = torch.randn(32, 5)
@@ -115,7 +115,7 @@ def test_EnchancedBatchTopkTrainingSAE_k_stays_at_initial_before_start_step():
         transition_k_duration_steps=5,
         transition_k_start_step=3,  # Start transition at step 3
     )
-    sae = EnchancedBatchTopkTrainingSAE(cfg)
+    sae = EnchancedBatchTopKTrainingSAE(cfg)
     random_model_params(sae)
 
     test_input = torch.randn(32, 5)
@@ -141,7 +141,7 @@ def test_EnchancedBatchTopkTrainingSAE_k_stays_at_final_after_transition_complet
         transition_k_duration_steps=4,
         transition_k_start_step=0,
     )
-    sae = EnchancedBatchTopkTrainingSAE(cfg)
+    sae = EnchancedBatchTopKTrainingSAE(cfg)
     random_model_params(sae)
 
     test_input = torch.randn(32, 5)
@@ -171,7 +171,7 @@ def test_EnchancedBatchTopkTrainingSAE_k_transition_with_non_zero_start_step():
         transition_k_duration_steps=4,
         transition_k_start_step=2,  # Start transition at step 2
     )
-    sae = EnchancedBatchTopkTrainingSAE(cfg)
+    sae = EnchancedBatchTopKTrainingSAE(cfg)
     random_model_params(sae)
 
     test_input = torch.randn(32, 5)
@@ -211,7 +211,7 @@ def test_EnchancedBatchTopkTrainingSAE_activation_function_k_updates_correctly()
         transition_k_duration_steps=2,
         transition_k_start_step=0,
     )
-    sae = EnchancedBatchTopkTrainingSAE(cfg)
+    sae = EnchancedBatchTopKTrainingSAE(cfg)
     random_model_params(sae)
 
     batch_size = 32
@@ -263,7 +263,7 @@ def test_EnchancedBatchTopkTrainingSAE_k_does_not_change_when_tweening_disabled(
         initial_k=None,  # No tweening
         transition_k_duration_steps=10,
     )
-    sae = EnchancedBatchTopkTrainingSAE(cfg)
+    sae = EnchancedBatchTopKTrainingSAE(cfg)
     random_model_params(sae)
 
     test_input = torch.randn(32, 5)

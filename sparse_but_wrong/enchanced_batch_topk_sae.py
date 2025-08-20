@@ -26,7 +26,7 @@ class EnhancedBatchTopKTrainingSAEConfig(BatchTopKTrainingSAEConfig):
     transition_k_start_step: int = 0
 
 
-class EnchancedBatchTopkTrainingSAE(BatchTopKTrainingSAE):
+class EnchancedBatchTopKTrainingSAE(BatchTopKTrainingSAE):
     """
     BatchTopK variant with some extra functionality.
     """
