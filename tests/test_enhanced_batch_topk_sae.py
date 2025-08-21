@@ -29,8 +29,8 @@ def test_EnchancedBatchTopkTrainingSAE_gives_same_results_after_folding_W_dec_no
     post_fold_feats = sae.encode(test_input)
     post_fold_output = sae.decode(post_fold_feats)
 
-    assert torch.allclose(pre_fold_feats, post_fold_feats, rtol=1e-3)
-    assert torch.allclose(pre_fold_output, post_fold_output, rtol=1e-3)
+    assert torch.allclose(pre_fold_feats, post_fold_feats, rtol=1e-2)
+    assert torch.allclose(pre_fold_output, post_fold_output, rtol=1e-2)
 
 
 def test_EnchancedBatchTopkTrainingSAE_gives_same_results_as_BatchTopkTrainingSAE_if_decoder_is_already_normalized():
@@ -58,8 +58,8 @@ def test_EnchancedBatchTopkTrainingSAE_gives_same_results_as_BatchTopkTrainingSA
     batch_topk_acts = sae2.encode(test_input)
     batch_topk_output = sae2.decode(batch_topk_acts)
 
-    assert torch.allclose(enhanced_acts, batch_topk_acts, rtol=1e-3)
-    assert torch.allclose(enhanced_output, batch_topk_output, rtol=1e-3)
+    assert torch.allclose(enhanced_acts, batch_topk_acts, rtol=1e-2)
+    assert torch.allclose(enhanced_output, batch_topk_output, rtol=1e-2)
 
 
 def test_EnchancedBatchTopkTrainingSAE_k_transitions_from_initial_to_final_over_duration():

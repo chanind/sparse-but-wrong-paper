@@ -56,25 +56,6 @@ class EnchancedBatchTopKTrainingSAE(BatchTopKTrainingSAE):
         return output
 
     @override
-    def encode_with_hidden_pre(
-        self, x: torch.Tensor
-    ) -> tuple[torch.Tensor, torch.Tensor]:
-        """
-        Encode, while scaling the hidden pre by the decoder norm if we're keeping decoder normalized.
-        """
-        sae_in = self.process_sae_in(x)
-
-        # need to scale the hidden pre by the decoder norm if we're keeping decoder normalized
-        W_enc = self.W_enc
-        if self.cfg.normalize_acts_by_decoder_norm:
-            W_enc = W_enc * self.W_dec.norm(dim=-1)
-
-        hidden_pre = self.hook_sae_acts_pre(sae_in @ W_enc + self.b_enc)
-
-        feature_acts = self.hook_sae_acts_post(self.activation_fn(hidden_pre))
-        return feature_acts, hidden_pre
-
-    @override
     def decode(self, feature_acts: torch.Tensor) -> torch.Tensor:
         """
         Decode, while normalizing the feature acts by the decoder norm if we're keeping decoder normalized.
@@ -90,7 +71,6 @@ class EnchancedBatchTopKTrainingSAE(BatchTopKTrainingSAE):
         if self.cfg.normalize_acts_by_decoder_norm:
             W_dec_norms = self.W_dec.norm(dim=-1).unsqueeze(1)
             self.W_dec.data = self.W_dec.data / W_dec_norms
-            self.W_enc.data = self.W_enc.data * W_dec_norms.T
         else:
             super().fold_W_dec_norm()
 
