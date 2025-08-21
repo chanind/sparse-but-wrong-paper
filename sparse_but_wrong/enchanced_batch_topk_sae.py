@@ -25,6 +25,11 @@ class EnhancedBatchTopKTrainingSAEConfig(BatchTopKTrainingSAEConfig):
     transition_k_duration_steps: int | None = None
     transition_k_start_step: int = 0
 
+    @override
+    @classmethod
+    def architecture(cls) -> str:
+        return "enhanced_batchtopk"
+
 
 class EnchancedBatchTopKTrainingSAE(BatchTopKTrainingSAE):
     """
