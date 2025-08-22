@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from typing import Any
 
 import torch
 from sae_lens import BatchTopKTrainingSAE, BatchTopKTrainingSAEConfig
@@ -61,6 +62,22 @@ class EnchancedBatchTopKTrainingSAE(BatchTopKTrainingSAE):
         return output
 
     @override
+    def encode_with_hidden_pre(
+        self, x: torch.Tensor
+    ) -> tuple[torch.Tensor, torch.Tensor]:
+        """
+        Similar to the base training method: calculate pre-activations, then apply TopK.
+        """
+        sae_in = self.process_sae_in(x)
+        hidden_pre = self.hook_sae_acts_pre(sae_in @ self.W_enc + self.b_enc)
+        if self.cfg.normalize_acts_by_decoder_norm:
+            hidden_pre = hidden_pre * self.W_dec.norm(dim=-1)
+
+        # Apply the TopK activation function (already set in self.activation_fn if config is "topk")
+        feature_acts = self.hook_sae_acts_post(self.activation_fn(hidden_pre))
+        return feature_acts, hidden_pre
+
+    @override
     def decode(self, feature_acts: torch.Tensor) -> torch.Tensor:
         """
         Decode, while normalizing the feature acts by the decoder norm if we're keeping decoder normalized.
@@ -74,8 +91,11 @@ class EnchancedBatchTopKTrainingSAE(BatchTopKTrainingSAE):
     def fold_W_dec_norm(self):
         # If we're keeping decoder normalized, we can fold the norm without issue, since we're already acting as if the decoder is normalized
         if self.cfg.normalize_acts_by_decoder_norm:
-            W_dec_norms = self.W_dec.norm(dim=-1).unsqueeze(1)
+            W_dec_norm = self.W_dec.norm(dim=-1)
+            self.b_enc.data = self.b_enc.data * W_dec_norm
+            W_dec_norms = W_dec_norm.unsqueeze(1)
             self.W_dec.data = self.W_dec.data / W_dec_norms
+            self.W_enc.data = self.W_enc.data * W_dec_norms.T
         else:
             super().fold_W_dec_norm()
 
@@ -84,3 +104,17 @@ class EnchancedBatchTopKTrainingSAE(BatchTopKTrainingSAE):
             return
         k = self.transition_k_tween(self.step_num)
         self.activation_fn.k = int(k)  # type: ignore[attr-defined]
+
+    @override
+    @torch.no_grad()
+    def process_state_dict_for_saving_inference(
+        self, state_dict: dict[str, Any]
+    ) -> None:
+        super().process_state_dict_for_saving_inference(state_dict)
+        # If we're keeping decoder normalized, we can fold the norm without issue, since we're already acting as if the decoder is normalized
+        if self.cfg.normalize_acts_by_decoder_norm:
+            W_dec_norm = state_dict["W_dec"].norm(dim=-1)
+            state_dict["b_enc"] = state_dict["b_enc"] * W_dec_norm
+            W_dec_norms = W_dec_norm.unsqueeze(1)
+            state_dict["W_dec"] = state_dict["W_dec"] / W_dec_norms
+            state_dict["W_enc"] = state_dict["W_enc"] * W_dec_norms.T
