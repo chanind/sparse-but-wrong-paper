@@ -2,7 +2,7 @@ import torch
 from sae_lens import SAE
 
 
-def nth_decoder_projection(input_acts: torch.Tensor, sae: SAE, n: int) -> float:
+def nth_decoder_projection(input_acts: torch.Tensor, sae: SAE, n: int) -> torch.Tensor:
     """
     Calculate the nth decoder projection of the SAE for the given input acts.
 
@@ -17,4 +17,4 @@ def nth_decoder_projection(input_acts: torch.Tensor, sae: SAE, n: int) -> float:
     hidden_pre_dec = (input_acts - sae.b_dec) @ sae.W_dec.T
     sorted_hidden_pre_dec = hidden_pre_dec.flatten().sort(descending=True).values
     index = n * hidden_pre_dec.shape[0]
-    return sorted_hidden_pre_dec[index].item()
+    return sorted_hidden_pre_dec[index]
