@@ -1,4 +1,4 @@
-# sparse-but-wrong-paper
+# Sparse but Wrong
 
 This repo contains the code for the paper "Sparse but Wrong: Incorrect L0 Leads to Incorrect
 Features in Sparse Autoencoders".
