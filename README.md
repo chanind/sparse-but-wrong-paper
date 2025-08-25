@@ -1,7 +1,9 @@
 # Sparse but Wrong
 
-This repo contains the code for the paper "Sparse but Wrong: Incorrect L0 Leads to Incorrect
-Features in Sparse Autoencoders".
+[![build](https://github.com/chanind/sparse-but-wrong-paper/actions/workflows/ci.yaml/badge.svg)](https://github.com/chanind/sparse-but-wrong-paper/actions/workflows/ci.yaml)
+
+This repo contains the code for the paper [Sparse but Wrong: Incorrect L0 Leads to Incorrect
+Features in Sparse Autoencoders](https://arxiv.org/abs/2508.16560).
 
 ## Setup
 
@@ -36,4 +38,15 @@ We also use `ruff` for linting and `pyright` for type checking. You can run the 
 ```bash
 uv run ruff check .
 uv run pyright
+```
+
+## Citation
+
+```
+@article{chanin2025,
+     title={Sparse but Wrong: Incorrect L0 Leads to Incorrect Features in Sparse Autoencoders},
+     author={David Chanin and Adrià Garriga-Alonso},
+     year={2025},
+     journal={arXiv preprint arXiv:2508.16560}
+}
 ```
