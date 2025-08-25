@@ -43,7 +43,7 @@ uv run pyright
 ## Citation
 
 ```
-@article{chanin2025,
+@article{chanin2025sparse,
      title={Sparse but Wrong: Incorrect L0 Leads to Incorrect Features in Sparse Autoencoders},
      author={David Chanin and Adrià Garriga-Alonso},
      year={2025},
