@@ -1,0 +1,36 @@
+cff-version: 1.2.0
+message: "If you use this research, please cite it as below."
+authors:
+  - family-names: "Chanin"
+    given-names: "David"
+  - family-names: "Garriga-Alonso"
+    given-names: "Adrià"
+title: "Sparse but Wrong: Incorrect L0 Leads to Incorrect Features in Sparse Autoencoders"
+type: article
+identifiers:
+  - type: arxiv
+    value: "2505.11756"
+    description: arXiv preprint
+url: "https://arxiv.org/abs/2508.16560"
+keywords:
+  - "sparse autoencoders"
+  - "SAEs"
+  - "interpretability"
+  - "NLP"
+preferred-citation:
+  type: article
+  authors:
+    - family-names: "Chanin"
+      given-names: "David"
+    - family-names: "Garriga-Alonso"
+      given-names: "Adrià"
+  title: "Sparse but Wrong: Incorrect L0 Leads to Incorrect Features in Sparse Autoencoders"
+  year: 2025
+  url: "https://arxiv.org/abs/2508.16560"
+  identifiers:
+    - type: arxiv
+      value: "2508.16560"
+  archive:
+    - name: "arXiv"
+      location: "https://arxiv.org/"
+  collection-type: "proceedings"
