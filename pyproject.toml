@@ -12,7 +12,7 @@ dependencies = [
     "matplotlib>=3.10.5",
     "nbformat>=5.10.4",
     "plotly>=6.3.0",
-    "sae-lens @ git+https://github.com/jbloomaus/SAELens.git@jumprelu-kernels",
+    "sae-lens>=6.11.1",
     "sae-probes>=0.1.3",
     "seaborn>=0.13.2",
     "tueplots>=0.2.1",

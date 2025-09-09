@@ -2562,8 +2562,8 @@ wheels = [
 
 [[package]]
 name = "sae-lens"
-version = "6.11.0"
-source = { git = "https://github.com/jbloomaus/SAELens.git?rev=jumprelu-kernels#82589ebce0a562faa96ae4327b86010a19d97301" }
+version = "6.11.1"
+source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "babe" },
     { name = "datasets" },
@@ -2578,6 +2578,10 @@ dependencies = [
     { name = "transformer-lens" },
     { name = "transformers" },
     { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/5a/8d/bb16ed0d0adea8e3bfb863dda650dd26ab7dae594dd378ed6298b032fe82/sae_lens-6.11.1.tar.gz", hash = "sha256:63038fb73926e383ec4e940a2374b1677a6b8a0338194658737eab7c577738ae", size = 134665, upload-time = "2025-09-08T15:07:03.947Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/3d/4c/49810857560551a9c5b10a62305ad16ddf1349da9cb6cbce54cd059c8040/sae_lens-6.11.1-py3-none-any.whl", hash = "sha256:972e44b0cf2cb5f80d9c6260dcbfdf5a3eda56f22793eba3f99687b2557c6865", size = 147998, upload-time = "2025-09-08T15:06:53.114Z" },
 ]
 
 [[package]]
@@ -2872,7 +2876,7 @@ requires-dist = [
     { name = "matplotlib", specifier = ">=3.10.5" },
     { name = "nbformat", specifier = ">=5.10.4" },
     { name = "plotly", specifier = ">=6.3.0" },
-    { name = "sae-lens", git = "https://github.com/jbloomaus/SAELens.git?rev=jumprelu-kernels" },
+    { name = "sae-lens", specifier = ">=6.11.1" },
     { name = "sae-probes", specifier = ">=0.1.3" },
     { name = "seaborn", specifier = ">=0.13.2" },
     { name = "tueplots", specifier = ">=0.2.1" },
