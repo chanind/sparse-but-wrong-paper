@@ -177,3 +177,4 @@ checkpoints/
 notebooks/*.pdf
 notebooks/*.png
 notebooks/plots
+saes_by_k/

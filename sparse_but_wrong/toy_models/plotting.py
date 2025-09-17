@@ -322,3 +322,36 @@ def plot_sae_feat_cos_sims_seaborn(
                 save_path, bbox_inches="tight"
             )  # Use bbox_inches='tight' for saving
         plt.show()
+
+
+def plot_correlation_matrix(
+    correlation_matrix: torch.Tensor,
+    save_path: str | Path | None = None,
+    dtick: int = 1,
+    title: str = "Feature correlation matrix",
+    size: tuple[float, float] = (2.5, 2),
+) -> None:
+    if save_path is not None:
+        Path(save_path).parent.mkdir(parents=True, exist_ok=True)
+
+    plt.rcParams.update({"figure.dpi": 150})
+    with plt.rc_context(SEABORN_RC_CONTEXT):
+        plt.figure(figsize=size)
+        sns.heatmap(correlation_matrix, cmap="RdBu", center=0, vmin=-1, vmax=1)
+        plt.gca().invert_yaxis()
+        plt.xlabel("Feature")
+        plt.ylabel("Feature")
+        plt.title(title)
+        # Increase tick spacing to prevent overlapping
+        plt.xticks(
+            range(0, len(correlation_matrix), dtick),
+            [str(i) for i in range(0, len(correlation_matrix), dtick)],
+        )
+        plt.yticks(
+            range(0, len(correlation_matrix), dtick),
+            [str(i) for i in range(0, len(correlation_matrix), dtick)],
+        )
+        # plt.tight_layout()
+        if save_path is not None:
+            plt.savefig(save_path)
+        plt.show()

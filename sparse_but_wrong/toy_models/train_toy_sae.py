@@ -57,6 +57,7 @@ def train_toy_sae(
         dead_feature_window=1000,
         feature_sampling_window=2000,
         logger=LoggingConfig(log_to_wandb=False),
+        save_final_checkpoint=False,
     )
     toy_model.eval()
     data_iterator = DataIterator(
