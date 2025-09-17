@@ -94,7 +94,7 @@ def get_training_batch(
         std_firing_magnitudes.unsqueeze(0).expand(batch_size, -1).to(device),
     )
     firing_magnitude_delta[firing_features == 0] = 0
-    return (firing_features * mean_firing_magnitudes + firing_magnitude_delta).relu()
+    return (firing_features * (mean_firing_magnitudes + firing_magnitude_delta)).relu()
 
 
 def _fix_correlation_matrix(
