@@ -178,3 +178,5 @@ notebooks/*.pdf
 notebooks/*.png
 notebooks/plots
 saes_by_k/
+jr_saes_by_l1/
+*.pt
