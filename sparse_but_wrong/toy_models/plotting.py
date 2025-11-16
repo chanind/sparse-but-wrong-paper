@@ -156,6 +156,7 @@ def plot_sae_feat_cos_sims_seaborn(
     decoder_only: bool = False,
     dtick: int | None = 1,
     decoder_title: str | None = "SAE decoder",
+    adjust_for_superposition: bool = False,
 ) -> None:
     """Plot cosine similarities between SAE features and true features using seaborn.
 
@@ -173,6 +174,7 @@ def plot_sae_feat_cos_sims_seaborn(
             If True, automatically finds best ordering. If a tensor, uses that ordering.
         decoder_only: Whether to plot only the decoder (single plot instead of side-by-side)
         dtick: Spacing between ticks on both axes. If None, uses matplotlib's default spacing.
+        adjust_for_superposition: Whether to subtract out superposition noise from the cosine similarities.
     """
     dec_cos_sims = (
         torch.round(cos_sims(sae.W_dec.T, model.embed.weight) * 100) / 100 + 0.0
@@ -190,6 +192,13 @@ def plot_sae_feat_cos_sims_seaborn(
         else:
             dec_cos_sims = dec_cos_sims[reorder_features]
             enc_cos_sims = enc_cos_sims[reorder_features]
+
+    if adjust_for_superposition:
+        feature_cos_sims = cos_sims(model.embed.weight, model.embed.weight)
+        # Zero out the diagonal to leave it untouched
+        feature_cos_sims = feature_cos_sims - torch.diag(torch.diag(feature_cos_sims))
+        dec_cos_sims = dec_cos_sims - feature_cos_sims
+        enc_cos_sims = enc_cos_sims - feature_cos_sims
 
     # NOTE: We plot the original matrices, not flipped ones.
     # We will invert the y-axis later for correct visual orientation.
